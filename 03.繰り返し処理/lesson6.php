@@ -37,46 +37,58 @@ th, td {
 </head>
 <body>
 <?php
-// ここにテーブル表示
-echo '<table>';
+$arr = [
+    'r1' => ['c1' => 10, 'c2' => 5, 'c3' => 20],
+    'r2' => ['c1' => 7, 'c2' => 8, 'c3' => 12],
+    'r3' => ['c1' => 25, 'c2' => 9, 'c3' => 130]
+];
 
-// ヘッダ行を生成
-echo '<tr>';
-echo '<th></th>'; // 空セル
-foreach ($arr['r1'] as $key => $value) {
-    echo '<th>' . $key . '</th>';
+echo '<table border="1">';
+echo '<tr><th></th>';
+
+// 列ごとの合計を格納する配列
+$colTotals = array('c1' => 0, 'c2' => 0, 'c3' => 0);
+
+// 表を生成
+$rowNames = array_keys($arr);
+$colNames = array_keys(reset($arr));
+
+echo '<tr><th></th>'; // 上部の空セル
+foreach ($colNames as $colName) {
+    echo '<th>' . $colName . '</th>';
 }
-echo '<th>横合計</th>';
-echo '</tr>';
 
-// データ行を生成
-$totalRow = array();
-foreach ($arr as $rowName => $rowData) {
+echo '<th>横合計</th>'; // 横合計のセル
+
+for ($i = 0; $i < count($rowNames); $i++) {
     echo '<tr>';
-    echo '<th>' . $rowName . '</th>';
+    echo '<th>' . $rowNames[$i] . '</th>';
     $rowTotal = 0;
-    foreach ($rowData as $value) {
+
+    for ($j = 0; $j < count($colNames); $j++) {
+        $value = $arr[$rowNames[$i]][$colNames[$j]];
         echo '<td>' . $value . '</td>';
         $rowTotal += $value;
+        $colTotals[$colNames[$j]] += $value;
     }
-    $totalRow[] = $rowTotal; // 各行の合計を保存
+
     echo '<td>' . $rowTotal . '</td>';
     echo '</tr>';
 }
 
-// 縦合計行を生成
-echo '<tr>';
-echo '<th>縦合計</th>';
-$totalSum = 0;
-foreach ($totalRow as $value) {
-    echo '<td>' . $value . '</td>';
-    $totalSum += $value;
+echo '<tr><th>縦合計</th>';
+$grandTotal = 0;
+
+foreach ($colTotals as $colTotal) {
+    echo '<td>' . $colTotal . '</td>';
+    $grandTotal += $colTotal;
 }
-echo '<td>' . $totalSum . '</td>';
+
+echo '<td>' . $grandTotal . '</td>';
 echo '</tr>';
 
 echo '</table>';
-
 ?>
+
 </body>
 </html>
