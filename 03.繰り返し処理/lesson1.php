@@ -2,9 +2,9 @@
 // 配列に「日本,アメリカ,イギリス,フランス」を格納し、foreach文を使って順番に下記のフォーマットで出力して下さい。
 // 要素番号:国名
 
-$Country = ["日本","アメリカ","イギリス","フランス"];
+$Country = ["日本"=> 0,"アメリカ"=> 1,"イギリス"=> 2,"フランス"=> 3];
 
-foreach($Country as $value){
-    echo "要素番号" .$value.'<br/>';
+foreach($Country as $key => $value){
+    echo $value .$key.'<br/>';
  }
 ?>

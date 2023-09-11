@@ -64,8 +64,19 @@ foreach ($arr as $rowName => $rowData) {
     echo '</tr>';
 }
 
+// 縦合計行を生成
+echo '<tr>';
+echo '<th>縦合計</th>';
+$totalSum = 0;
+foreach ($totalRow as $value) {
+    echo '<td>' . $value . '</td>';
+    $totalSum += $value;
+}
+echo '<td>' . $totalSum . '</td>';
+echo '</tr>';
 
-echo '</tr></table>';
+echo '</table>';
+
 ?>
 </body>
 </html>
